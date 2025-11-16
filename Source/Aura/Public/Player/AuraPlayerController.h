@@ -4,6 +4,8 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/PlayerController.h"
+#include "Interaction/EnemyInterface.h"
+
 #include "AuraPlayerController.generated.h"
 
 class UInputMappingContext; // 增强输入前置声明，指针可用
@@ -21,6 +23,7 @@ class AURA_API AAuraPlayerController : public APlayerController
 
 public:
 	AAuraPlayerController();
+	virtual void PlayerTick(float DeltaTime) override;
 	
 protected:
 	virtual void BeginPlay() override;
@@ -34,4 +37,8 @@ private:
 	TObjectPtr<UInputAction> MoveAction;
 
 	void Move(const FInputActionValue &InputActionValue);
+
+	void CursorTrace();
+	IEnemyInterface* CurrentActor;
+	IEnemyInterface* LastActor;
 };

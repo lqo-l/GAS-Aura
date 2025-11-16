@@ -11,6 +11,13 @@ AAuraPlayerController::AAuraPlayerController()
 	bReplicates = true; // 启用网络复制
 }
 
+void AAuraPlayerController::PlayerTick(float DeltaTime)
+{
+	Super::PlayerTick(DeltaTime);
+
+	CursorTrace(); // 高亮光标处敌人
+}
+
 void AAuraPlayerController::BeginPlay()
 {
 	Super::BeginPlay();
@@ -51,6 +58,31 @@ void AAuraPlayerController::Move(const FInputActionValue& InputActionValue)
 	{
 		ControlledPawn->AddMovementInput(ForwardDirection,InputAxisVector.Y);
 		ControlledPawn->AddMovementInput(RightDirection,InputAxisVector.X);
+	}
+}
+
+void AAuraPlayerController::CursorTrace()
+{
+	FHitResult CursorHit;
+	GetHitResultUnderCursor(ECC_Visibility, false, CursorHit); 
+	if (!CursorHit.bBlockingHit) return;
+
+	LastActor = CurrentActor;
+	CurrentActor = Cast<IEnemyInterface>(CursorHit.GetActor());
+
+	// case A: 1 1
+	// case B: null null
+	// case C: null 1
+	// case D: 1 null
+	// case E: 1 2
+	if (LastActor == CurrentActor) return; // case A B
+	if (CurrentActor) // case C E
+	{
+		CurrentActor->HighlightActor();
+	}
+	if (LastActor) // case D E
+	{
+		LastActor->UnHighlightActor();
 	}
 }
 
