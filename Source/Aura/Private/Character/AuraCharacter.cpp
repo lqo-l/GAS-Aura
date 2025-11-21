@@ -44,7 +44,7 @@ void AAuraCharacter::InitAbilityActorInfo()
 	 * 在混合复制模式下，设置AbilityActorInfo的Owner Actor的Owner必须是Controller。
 	 * 对于Pawns，PossessedBy()自动将Pawn的Owner设置为Controller。
 	 * PlayerState的Owner也自动设置为Controller。
-	 * 这里Owner Actor是PlayerState，若不是，需要手动对OwnerActor进行SetOwner()为COntroller的操作
+	 * 这里Owner Actor是PlayerState，若不是，需要手动对OwnerActor进行SetOwner()为Controller的操作
 	*/
 	AAuraPlayerState* AuraPlayerState = GetPlayerState<AAuraPlayerState>();
 	check(AuraPlayerState);
