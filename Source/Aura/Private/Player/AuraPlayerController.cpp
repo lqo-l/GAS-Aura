@@ -23,9 +23,13 @@ void AAuraPlayerController::BeginPlay()
 	Super::BeginPlay();
 
 	check(AuraContext);
-	UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(GetLocalPlayer());
-	check(Subsystem);
-	Subsystem->AddMappingContext(AuraContext, 0); // 添加输入映射上下文
+	UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(
+		GetLocalPlayer());
+	
+	if (Subsystem) // 不使用check(Subsystem); 因为多人情况下,仅本地玩家有Subsystem
+	{
+		Subsystem->AddMappingContext(AuraContext, 0); // 添加输入映射上下文
+	}
 
 	bShowMouseCursor = true; // 显示鼠标光标
 	DefaultMouseCursor = EMouseCursor::Default;
@@ -56,15 +60,15 @@ void AAuraPlayerController::Move(const FInputActionValue& InputActionValue)
 
 	if (APawn* ControlledPawn = GetPawn())
 	{
-		ControlledPawn->AddMovementInput(ForwardDirection,InputAxisVector.Y);
-		ControlledPawn->AddMovementInput(RightDirection,InputAxisVector.X);
+		ControlledPawn->AddMovementInput(ForwardDirection, InputAxisVector.Y);
+		ControlledPawn->AddMovementInput(RightDirection, InputAxisVector.X);
 	}
 }
 
 void AAuraPlayerController::CursorTrace()
 {
 	FHitResult CursorHit;
-	GetHitResultUnderCursor(ECC_Visibility, false, CursorHit); 
+	GetHitResultUnderCursor(ECC_Visibility, false, CursorHit);
 	if (!CursorHit.bBlockingHit) return;
 
 	LastActor = CurrentActor;
@@ -85,6 +89,3 @@ void AAuraPlayerController::CursorTrace()
 		LastActor->UnHighlightActor();
 	}
 }
-
-
-	
