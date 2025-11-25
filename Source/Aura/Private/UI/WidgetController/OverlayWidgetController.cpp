@@ -3,6 +3,7 @@
 
 #include "UI/WidgetController/OverlayWidgetController.h"
 
+#include "AbilitySystem/AuraAbilitySystemComponent.h"
 #include "AbilitySystem/AuraAttributeSet.h"
 
 void UOverlayWidgetController::BroadcastInitialValues()
@@ -29,6 +30,22 @@ void UOverlayWidgetController::BindCallbacksToDependencies()
 		.AddUObject(this, &UOverlayWidgetController::ManaChanged);
 	AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(AuraAttributeSet->GetMaxManaAttribute())
 		.AddUObject(this, &UOverlayWidgetController::MaxManaChanged);
+
+	// 绑定自定义委托，监听GameplayEffect应用时的标签添加委托
+	Cast<UAuraAbilitySystemComponent>(AbilitySystemComponent)->OnGetEffectTags.AddLambda(
+		[this](const FGameplayTagContainer& AssetTags)
+		{
+			for (const auto &Tag : AssetTags)
+			{
+				// 调试信息
+				const FString Msg = FString::Printf(TEXT("GE Tag Applied: %s"), *Tag.ToString()); 
+				// UE_LOG(LogTemp, Warning, TEXT("%s"), *Msg);
+				GEngine->AddOnScreenDebugMessage(-1, 9.f, FColor::Blue, Msg);
+
+				FUIWidgetRow* Row =  GetDataTableRowByTag<FUIWidgetRow>(MessageWidgetDataTable, Tag);
+			}
+		}
+	);
 }
 
 void UOverlayWidgetController::HealthChanged(const FOnAttributeChangeData& Data) const
