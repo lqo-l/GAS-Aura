@@ -32,8 +32,7 @@ void UAuraAttributeSet::PreAttributeChange(const FGameplayAttribute& Attribute, 
 {
 	Super::PreAttributeChange(Attribute, NewValue);
 /**
- *   属性值修改前的钩子函数，可以在这里对属性值进行限制或调整。仅改变查询修改器的返回值。
- *   后续操作会重新计算来自修改器的Current Value，需要再次Clamp。
+ *   这里仅改变查询修改器的返回值，并不会影响修改器的实际值。需要在Post中再次Clamp。
  */
 	
 	if (Attribute == GetHealthAttribute())
@@ -88,6 +87,16 @@ void UAuraAttributeSet::PostGameplayEffectExecute(const struct FGameplayEffectMo
 
 	FEffectProperties Props;
 	SetEffectProperties(Data, Props);
+	
+	// 后处理需要约束实际值,因为修改器值不会在预处理改变，最终还是会累加到
+	 if(Data.EvaluatedData.Attribute == GetHealthAttribute())
+	 {
+	 	SetHealth(FMath::Clamp(GetHealth(), 0.f, GetMaxHealth()));
+	 }
+	if(Data.EvaluatedData.Attribute == GetManaAttribute())
+	 {
+		SetMana(FMath::Clamp(GetMana(), 0.f, GetMaxMana()));
+	 }
 
 }
 
