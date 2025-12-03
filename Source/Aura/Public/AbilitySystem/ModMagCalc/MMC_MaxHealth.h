@@ -1,0 +1,24 @@
+// 
+
+#pragma once
+
+#include "CoreMinimal.h"
+#include "GameplayModMagnitudeCalculation.h"
+#include "MMC_MaxHealth.generated.h"
+
+/**
+ * 
+ */
+UCLASS()
+class AURA_API UMMC_MaxHealth : public UGameplayModMagnitudeCalculation
+{
+	GENERATED_BODY()
+public:
+	UMMC_MaxHealth();
+
+	/** 自定义运算 */
+	virtual float CalculateBaseMagnitude_Implementation(const FGameplayEffectSpec& Spec) const override;
+
+private:
+	FGameplayEffectAttributeCaptureDefinition VigorDef; // Vigor属性捕获定义
+};
