@@ -14,10 +14,12 @@ struct FAuraGameplayTags
 public:
 	static FAuraGameplayTags& Get()
 	{
-		// static FAuraGameplayTags GameplayTags; // 懒汉式单例
+		static FAuraGameplayTags GameplayTags; // 懒汉式单例
 		return GameplayTags;
 	}
 	static void InitializeNativeGameplayTags();
+
+	FGameplayTag Attributes_Secondary_Armor;
 protected:
 
 private:
@@ -27,6 +29,6 @@ private:
 	FAuraGameplayTags(const FAuraGameplayTags&) = delete; // 禁止拷贝构造
 	FAuraGameplayTags& operator=(const FAuraGameplayTags&) = delete; // 禁止赋值操作
 	
-	inline static FAuraGameplayTags GameplayTags; // 或者饿汉式单例
+	
 };
 
