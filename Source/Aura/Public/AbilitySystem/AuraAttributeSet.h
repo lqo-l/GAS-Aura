@@ -25,28 +25,28 @@ struct FEffectProperties
 	FGameplayEffectContextHandle EffectContextHandle;
 
 	UPROPERTY()
-	UAbilitySystemComponent* SourceASC;
+	UAbilitySystemComponent* SourceASC = nullptr;
 
 	UPROPERTY()
-	AActor* SourceAvatarActor;
+	AActor* SourceAvatarActor = nullptr;
 
 	UPROPERTY()
-	AController* SourceController;
+	AController* SourceController = nullptr;
 
 	UPROPERTY()
-	ACharacter* SourceCharacter;
+	ACharacter* SourceCharacter = nullptr;
 
 	UPROPERTY()
-	UAbilitySystemComponent* TargetASC;
+	UAbilitySystemComponent* TargetASC = nullptr;
 
 	UPROPERTY()
-	AActor* TargetAvatarActor;
+	AActor* TargetAvatarActor = nullptr;
 
 	UPROPERTY()
-	AController* TargetController;
+	AController* TargetController = nullptr;
 
 	UPROPERTY()
-	ACharacter* TargetCharacter;
+	ACharacter* TargetCharacter = nullptr;
 
 };
 
