@@ -11,7 +11,12 @@ void UAuraAbilitySystemComponent::AbilityActorInfoSet()
 	OnGameplayEffectAppliedDelegateToTarget.AddUObject(this, &UAuraAbilitySystemComponent::EffectApplied);
 
 	const FAuraGameplayTags &GameplayTags =  FAuraGameplayTags::Get();
-	GEngine->AddOnScreenDebugMessage(-1, 10.f, FColor::Green, FString::Printf(TEXT("AbilityActorInfoSet: %s"), *GameplayTags.Attributes_Secondary_Armor.ToString()));
+	// GEngine->AddOnScreenDebugMessage(
+	// 	-1,
+	// 	10.f,
+	// 	FColor::Green,
+	// 	FString::Printf(TEXT("AbilityActorInfoSet: %s"), *GameplayTags.Attributes_Secondary_Armor.ToString())
+	// 	);
 }
 
 void UAuraAbilitySystemComponent::EffectApplied(UAbilitySystemComponent* ASC, const FGameplayEffectSpec& EffectSpec,
