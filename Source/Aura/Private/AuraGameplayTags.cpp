@@ -18,17 +18,17 @@ void FAuraGameplayTags::InitializeNativeGameplayTags()
 
 	GameplayTags.Attributes_Primary_Intelligence = UGameplayTagsManager::Get().AddNativeGameplayTag(
 		FName("Attributes.Primary.Intelligence"),
-		FString("Increases magical damage")
+		FString("增加魔法伤害")
 		);
 
 	GameplayTags.Attributes_Primary_Resilience = UGameplayTagsManager::Get().AddNativeGameplayTag(
 		FName("Attributes.Primary.Resilience"),
-		FString("Increases Armor and Armor Penetration")
+		FString("增加护甲和护甲穿透")
 		);
 
 	GameplayTags.Attributes_Primary_Vigor = UGameplayTagsManager::Get().AddNativeGameplayTag(
 		FName("Attributes.Primary.Vigor"),
-		FString("Increases Health")
+		FString("增加生命")
 		);
 
 	/*
@@ -42,47 +42,47 @@ void FAuraGameplayTags::InitializeNativeGameplayTags()
 
 	GameplayTags.Attributes_Secondary_ArmorPenetration = UGameplayTagsManager::Get().AddNativeGameplayTag(
 		FName("Attributes.Secondary.ArmorPenetration"),
-		FString("Ignores Percentage of enemy Armor, increases Critical Hit Chance")
+		FString("忽略敌方护甲的百分比，提高暴击几率")
 		);
 
 	GameplayTags.Attributes_Secondary_BlockChance = UGameplayTagsManager::Get().AddNativeGameplayTag(
 		FName("Attributes.Secondary.BlockChance"),
-		FString("Chance to cut incoming damage in half")
+		FString("将受到的伤害减少一半的概率")
 		);
 
 	GameplayTags.Attributes_Secondary_CriticalHitChance = UGameplayTagsManager::Get().AddNativeGameplayTag(
 		FName("Attributes.Secondary.CriticalHitChance"),
-		FString("Chance to double damage plus critical hit bonus")
+		FString("暴击概率")
 		);
 
 	GameplayTags.Attributes_Secondary_CriticalHitDamage = UGameplayTagsManager::Get().AddNativeGameplayTag(
 		FName("Attributes.Secondary.CriticalHitDamage"),
-		FString("Bonus damage added when a critical hit is scored")
+		FString("暴击时额外增加的伤害值")
 		);
 
 	GameplayTags.Attributes_Secondary_CriticalHitResistance = UGameplayTagsManager::Get().AddNativeGameplayTag(
 		FName("Attributes.Secondary.CriticalHitResistance"),
-		FString("Reduces Critical Hit Chance of attacking enemies")
+		FString("降低攻击敌人的暴击几率")
 		);
 
 	GameplayTags.Attributes_Secondary_HealthRegeneration = UGameplayTagsManager::Get().AddNativeGameplayTag(
 		FName("Attributes.Secondary.HealthRegeneration"),
-		FString("Amount of Health regenerated every 1 second")
+		FString("每秒恢复的生命值量")
 		);
 
 	GameplayTags.Attributes_Secondary_ManaRegeneration = UGameplayTagsManager::Get().AddNativeGameplayTag(
 		FName("Attributes.Secondary.ManaRegeneration"),
-		FString("Amount of Mana regenerated every 1 second")
+		FString("每秒恢复的魔力量值")
 		);
 
 	GameplayTags.Attributes_Secondary_MaxHealth = UGameplayTagsManager::Get().AddNativeGameplayTag(
 		FName("Attributes.Secondary.MaxHealth"),
-		FString("Maximum amount of Health obtainable")
+		FString("可获得的最大生命值")
 		);
 
 	GameplayTags.Attributes_Secondary_MaxMana = UGameplayTagsManager::Get().AddNativeGameplayTag(
 		FName("Attributes.Secondary.MaxMana"),
-		FString("Maximum amount of Mana obtainable")
+		FString("可获得的最大法力值")
 		);
 	
 }
