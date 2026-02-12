@@ -44,6 +44,6 @@ public:
 	FAuraAttributeInfo FindAttributeInfoForTag(const FGameplayTag& AttributeTag, bool blogNotFound = false) const;
 	
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
-	TArray<FAuraAttributeInfo> AttirbuteInformation;
+	TArray<FAuraAttributeInfo> AttributeInformation;
 	
 };

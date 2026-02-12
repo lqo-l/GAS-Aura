@@ -5,7 +5,7 @@
 
 FAuraAttributeInfo UAttributeInfo::FindAttributeInfoForTag(const FGameplayTag& AttributeTag, bool blogNotFound) const
 {
-	for (const FAuraAttributeInfo& Info : AttirbuteInformation)
+	for (const FAuraAttributeInfo& Info : AttributeInformation)
 	{
 		if (Info.AttributeTag.MatchesTagExact(AttributeTag))
 		{
