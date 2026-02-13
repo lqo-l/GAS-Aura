@@ -28,3 +28,4 @@ protected:
 	TObjectPtr<UAttributeInfo> AttributeInfo;
 
 };
+ 
