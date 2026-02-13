@@ -19,8 +19,19 @@ void UAuraAbilitySystemComponent::AbilityActorInfoSet()
 	// 	);
 }
 
+void UAuraAbilitySystemComponent::AddCharacterAbilities(const TArray<TSubclassOf<UGameplayAbility>>& StartupAbilities)
+{
+	for (TSubclassOf<UGameplayAbility> AbilityClass :StartupAbilities)
+	{
+		FGameplayAbilitySpec AbilitySpec(AbilityClass, 1);
+		// GiveAbility(AbilitySpec);
+		GiveAbilityAndActivateOnce(AbilitySpec);
+	}
+	
+}
+
 void UAuraAbilitySystemComponent::EffectApplied(UAbilitySystemComponent* ASC, const FGameplayEffectSpec& EffectSpec,
-	FActiveGameplayEffectHandle EffectHandle)
+                                                FActiveGameplayEffectHandle EffectHandle)
 {
 	FGameplayTagContainer TagContainer;
 	EffectSpec.GetAllAssetTags(TagContainer);

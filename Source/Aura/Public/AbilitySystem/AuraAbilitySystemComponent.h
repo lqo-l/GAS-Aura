@@ -21,7 +21,8 @@ public:
 	void AbilityActorInfoSet();
 
 	FOnGetEffectTagsDelegate OnGetEffectTags; // 自定义委托，应用标签时触发广播
-	
+
+	void AddCharacterAbilities(const TArray<TSubclassOf<UGameplayAbility>>& StartupAbilities);
 protected:
 	
 	void EffectApplied(UAbilitySystemComponent* ASC, const FGameplayEffectSpec& EffectSpec, FActiveGameplayEffectHandle ActiveEffectHandle);
