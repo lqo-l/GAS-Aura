@@ -18,6 +18,9 @@ UAuraAttributeSet::UAuraAttributeSet()
 	
 	TagsToAttributes.Add(Tags.Attributes_Primary_Strength, GetStrengthAttribute);
 	TagsToAttributes.Add(Tags.Attributes_Primary_Intelligence, GetIntelligenceAttribute);
+	TagsToAttributes.Add(Tags.Attributes_Primary_Resilience, GetResilienceAttribute);
+	TagsToAttributes.Add(Tags.Attributes_Primary_Vigor, GetVigorAttribute);
+	
 }
 
 void UAuraAttributeSet::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const

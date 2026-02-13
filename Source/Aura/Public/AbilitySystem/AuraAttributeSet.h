@@ -51,6 +51,13 @@ struct FEffectProperties
 
 };
 
+// auto化简后即 FGameplayAttribute(*)()
+// using FAttributeFuncPtr =  TBaseStaticDelegateInstance<FGameplayAttribute(), FDefaultDelegateUserPolicy>::FFuncPtr; // FGameplayAttribute()是一个无参函数，返回FGameplayAttribute的函数指针类型，没有*
+
+// 模板别名，可以根据需要替换T为任何返回FGameplayAttribute的函数指针类型
+template<class T> // T应为函数类型，如 FGameplayAttribute()，即无参返回FGameplayAttribute的函数类型
+using TStaticFuncPtr = TBaseStaticDelegateInstance<T, FDefaultDelegateUserPolicy>::FFuncPtr;
+
 UCLASS()
 class AURA_API UAuraAttributeSet : public UAttributeSet
 {
@@ -62,8 +69,8 @@ public:
 	virtual void PreAttributeChange(const FGameplayAttribute& Attribute, float& NewValue) override;
 	virtual void PostGameplayEffectExecute(const struct FGameplayEffectModCallbackData& Data) override;
 
-	TMap<FGameplayTag, TBaseStaticDelegateInstance<FGameplayAttribute(), FDefaultDelegateUserPolicy>::FFuncPtr> TagsToAttributes; // 直接存储函数指针而非委托
-
+	TMap<FGameplayTag, TStaticFuncPtr<FGameplayAttribute()>> TagsToAttributes; // 直接存储函数指针而非委托
+	
 
 	/* Vital Attributes */
 	UPROPERTY(BlueprintReadOnly, ReplicatedUsing = OnRep_Health, Category = "Vital Attributes")
