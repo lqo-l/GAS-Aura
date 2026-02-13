@@ -14,14 +14,10 @@
 UAuraAttributeSet::UAuraAttributeSet()
 {
 	const FAuraGameplayTags& Tags = FAuraGameplayTags::Get();
-	
-	FAttributeSignature StrengthSignature;
-	StrengthSignature.BindStatic(GetStrengthAttribute);
-	TagsToAttributes.Add(Tags.Attributes_Primary_Strength, StrengthSignature);
 
-	FAttributeSignature IntelligenceSignature;
-	IntelligenceSignature.BindStatic(GetIntelligenceAttribute);
-	TagsToAttributes.Add(Tags.Attributes_Primary_Intelligence, IntelligenceSignature);
+	
+	TagsToAttributes.Add(Tags.Attributes_Primary_Strength, GetStrengthAttribute);
+	TagsToAttributes.Add(Tags.Attributes_Primary_Intelligence, GetIntelligenceAttribute);
 }
 
 void UAuraAttributeSet::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
