@@ -48,23 +48,4 @@ UAttributeMenuWidgetController* AAuraHUD::GetAttributeMenuWidgetController(const
 	return AttributeMenuWidgetController;
 }
 
-// void AAuraHUD::InitAttributeMenu(APlayerController* PC, APlayerState* PS, UAbilitySystemComponent* ASC,
-// 	UAttributeSet* AS)
-// {
-// 	checkf(AttributeMenuWidgetClass, TEXT("AttributeMenuWidgetClass is not set in AuraHUD"));
-// 	checkf(AttributeMenuWidgetControllerClass, TEXT("AttributeMenuWidgetControllerClass is not set in AuraHUD"));
-//
-// 	// widget
-// 	UUserWidget* Widget = CreateWidget<UUserWidget>(GetWorld(), AttributeMenuWidgetClass);
-// 	AttributeMenuWidget = Cast<UAuraUserWidget>(Widget);
-//
-// 	// widget controller
-// 	const FWidgetControllerParams WidgetControllerParams(PC, PS, ASC, AS);
-// 	UAttributeMenuWidgetController* WidgetController = GetAttributeMenuWidgetController(WidgetControllerParams);
-// 	
-// 	AttributeMenuWidget->SetWidgetController(WidgetController);
-// 	WidgetController->BroadcastInitialValues();
-// 	
-// 	Widget->AddToViewport();
-// }
 

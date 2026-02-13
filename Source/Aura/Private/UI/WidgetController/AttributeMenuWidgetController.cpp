@@ -12,11 +12,14 @@ void UAttributeMenuWidgetController::BroadcastInitialValues()
 	UAuraAttributeSet* AS = Cast<UAuraAttributeSet>(AttributeSet);
 
 	check(AttributeInfo);
-	FAuraAttributeInfo Strength = AttributeInfo->FindAttributeInfoForTag(FAuraGameplayTags::Get().Attributes_Primary_Strength);
-	float StrengthValue = AS->GetStrength();
-	Strength.AttributeValue = StrengthValue;
+
+	for (TPair<FGameplayTag, TDelegate<FGameplayAttribute()>>& Pair : AS->TagsToAttributes)
+	{
+		FAuraAttributeInfo Info = AttributeInfo->FindAttributeInfoForTag(Pair.Key);
+		Info.AttributeValue = Pair.Value.Execute().GetNumericValue(AS);
+		AttributeInfoDelegate.Broadcast(Info);
+	}
 	
-	AttributeInfoDelegate.Broadcast(Strength);
 }
 
 void UAttributeMenuWidgetController::BindCallbacksToDependencies()
