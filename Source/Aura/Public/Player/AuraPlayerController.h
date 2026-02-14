@@ -8,6 +8,8 @@
 
 #include "AuraPlayerController.generated.h"
 
+struct FGameplayTag;
+class UAuraInputConfig;
 class UInputMappingContext; // 增强输入前置声明，指针可用
 class UInputAction;
 struct FInputActionValue; 
@@ -35,10 +37,20 @@ private:
 
 	UPROPERTY(EditAnywhere, Category="Input")
 	TObjectPtr<UInputAction> MoveAction;
-
+	
 	void Move(const FInputActionValue &InputActionValue);
 
 	void CursorTrace();
 	IEnemyInterface* CurrentActor;
 	IEnemyInterface* LastActor;
+
+
+	
+	UPROPERTY(EditDefaultsOnly, Category="Input")
+	TObjectPtr<UAuraInputConfig> InputConfig;
+
+	void AbilityInputTagPressed(FGameplayTag InputTag);
+	void AbilityInputTagReleased(FGameplayTag InputTag);
+	void AbilityInputTagHeld(FGameplayTag InputTag);
+	
 };
