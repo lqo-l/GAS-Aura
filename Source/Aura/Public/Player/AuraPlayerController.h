@@ -8,6 +8,7 @@
 
 #include "AuraPlayerController.generated.h"
 
+class UAuraAbilitySystemComponent;
 struct FGameplayTag;
 class UAuraInputConfig;
 class UInputMappingContext; // 增强输入前置声明，指针可用
@@ -52,5 +53,11 @@ private:
 	void AbilityInputTagPressed(FGameplayTag InputTag);
 	void AbilityInputTagReleased(FGameplayTag InputTag);
 	void AbilityInputTagHeld(FGameplayTag InputTag);
+
+	UPROPERTY()
+	TObjectPtr<UAuraAbilitySystemComponent> AbilitySystemComponent;
+
+	// 由于频繁获取ASC并Cast,我们创建一个函数来获取ASC,以减少Cast次数
+	UAuraAbilitySystemComponent* GetASC();
 	
 };

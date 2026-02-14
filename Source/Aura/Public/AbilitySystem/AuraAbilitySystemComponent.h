@@ -23,6 +23,10 @@ public:
 	FOnGetEffectTagsDelegate OnGetEffectTags; // 自定义委托，应用标签时触发广播
 
 	void AddCharacterAbilities(const TArray<TSubclassOf<UGameplayAbility>>& StartupAbilities);
+
+	// void AbilityInputTagPressed(FGameplayTag InputTag);
+	void AbilityInputTagReleased(const FGameplayTag& InputTag);
+	void AbilityInputTagHeld(const FGameplayTag& InputTag);
 protected:
 	
 	void EffectApplied(UAbilitySystemComponent* ASC, const FGameplayEffectSpec& EffectSpec, FActiveGameplayEffectHandle ActiveEffectHandle);
