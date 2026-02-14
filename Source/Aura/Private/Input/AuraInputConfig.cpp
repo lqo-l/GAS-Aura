@@ -8,7 +8,7 @@ const UInputAction* UAuraInputConfig::FindAbilityInputActionForTag(const FGamepl
 {
 	for (const FAuraInputAction& Action : AbilityInputActions)
 	{
-		if (Action.InputTag.MatchesTagExact(InputTag))
+		if (Action.InputAction && Action.InputTag.MatchesTagExact(InputTag))
 		{
 			return Action.InputAction;
 		}
