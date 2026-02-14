@@ -6,12 +6,16 @@
 #include "EnhancedInputSubsystems.h"
 // #include "EnhancedInputComponent.h"
 #include "AbilitySystemBlueprintLibrary.h"
+#include "AuraGameplayTags.h"
 #include "AbilitySystem/AuraAbilitySystemComponent.h"
+#include "Components/SplineComponent.h"
 #include "Input/AuraInputComponent.h"
 
 AAuraPlayerController::AAuraPlayerController()
 {
 	bReplicates = true; // 启用网络复制
+
+	Spline = CreateDefaultSubobject<USplineComponent>("Spline");
 }
 
 void AAuraPlayerController::PlayerTick(float DeltaTime)
@@ -105,7 +109,11 @@ void AAuraPlayerController::CursorTrace()
 
 void AAuraPlayerController::AbilityInputTagPressed(FGameplayTag InputTag)
 {
-	// GEngine->AddOnScreenDebugMessage(1, 3.f, FColor::Blue, FString::Printf(TEXT("Pressed [%s]"), *InputTag.ToString()));
+	if (InputTag.MatchesTagExact(FAuraGameplayTags::Get().InputTag_LMB))
+	{
+		bTargeting = CurrentActor? true : false; // 如果当前光标指向敌人，则进入锁定状态
+		bAutoRunning = false; // 重置自动移动状态
+	}
 }
 
 void AAuraPlayerController::AbilityInputTagReleased(FGameplayTag InputTag)
@@ -116,9 +124,29 @@ void AAuraPlayerController::AbilityInputTagReleased(FGameplayTag InputTag)
 
 void AAuraPlayerController::AbilityInputTagHeld(FGameplayTag InputTag)
 {
-	if (GetASC() == nullptr) return;
-	GetASC()->AbilityInputTagHeld(InputTag);
-	
+	if (!InputTag.MatchesTagExact(FAuraGameplayTags::Get().InputTag_LMB) || bTargeting) // 仅在非左键输入或左键指向敌人时判断ASC能力
+	{
+		if (GetASC())
+		{
+			GetASC()->AbilityInputTagHeld(InputTag);
+		}
+	}else // 左键长按且未指向敌人，执行跟随移动相关的逻辑
+	{
+		FollowTime += GetWorld()->GetDeltaSeconds();
+
+		FHitResult Hit;
+		if (GetHitResultUnderCursor(ECC_Visibility, false, Hit))
+		{
+			CachedDestination = Hit.ImpactPoint; // 更新目标位置缓存
+		}
+
+		// 实时更新目标位置并移动角色
+		if (APawn* ControlledPawn = GetPawn())
+		{
+			const FVector WorldDirection = (CachedDestination - ControlledPawn->GetActorLocation()).GetSafeNormal();
+			ControlledPawn->AddMovementInput(WorldDirection);
+		}
+	}
 }
 
 UAuraAbilitySystemComponent* AAuraPlayerController::GetASC()
